@@ -3,4 +3,6 @@ project(LibBookManager)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(LibBookManager main.cpp)
+add_executable(LibBookManager main.cpp
+        Book.cpp
+        Book.h)
