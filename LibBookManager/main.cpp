@@ -29,7 +29,8 @@ std::unique_ptr<Book> createBook() {
     return (std::make_unique<Book>(tempBookTitle, tempBookAuthor, tempBookYear));
 }
 
-void showBooks(bool isCheckOut) {
+int showBooks(const bool isCheckOut) {
+    int userChoice;
     if (isCheckOut) {
         std::cout << "Which Book would you like to check out \n" << std::endl;
         for (int i = 0; i < bookLibrary.size(); i++) {
@@ -49,6 +50,9 @@ void showBooks(bool isCheckOut) {
             }
         }
     }
+    std::cout << "Enter the number of the book you would like to chose: " << std::endl;
+    std::cin >> userChoice;
+    return userChoice;
 }
 
 int main() {
@@ -66,11 +70,23 @@ int main() {
                     std::cout << "\n" << "Book " << i + 1 << ": " << std::endl;
                     bookLibrary[i]->printInfo();
                 }
+                break;
             case 3:
-                showBooks(true);
+                if (bookLibrary.empty()) {
+                    std::cout << "\nThere are no books\n";
+                    break;
+                }
+                bookLibrary[showBooks(true)]->checkoutBook();
+                break;
+
 
             case 4:
-                showBooks(false);
+                if (bookLibrary.empty()) {
+                    std::cout << "\nThere are no books\n";
+                    break;
+                }
+                bookLibrary[showBooks(false)]->returnBook();
+                break;
         }
     }
     return 0;
